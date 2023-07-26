@@ -63,3 +63,36 @@ df['processed_text'] = df['text'].apply(preprocess_text)
 
 # Save the preprocessed DataFrame to a new CSV file
 df.to_csv('/Users/mohamed/Desktop/spamDetection/preprocessed_spam_assassin.csv', index=False)
+
+# Initialize the Term frequency idfVectorizer
+vectorizer = TfidfVectorizer()
+
+# Transform the preprocessed text data into numerical vectors
+X = vectorizer.fit_transform(df['processed_text'])
+
+# Get the target labels
+y = df['target']
+
+# Split the dataset into training and testing (20% of datasets) 
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Initialize the Multinomial Naives Bayes classifier
+classifier = MultinomialNB()
+
+# Train the classifier on the training data
+classifier.fit(X_train, y_train)
+
+# Make predictions on the test data
+y_pred = classifier.predict(X_test)
+
+# Evaluate the classifier's performance
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+
+# Print the evaluation metrics
+print("Accuracy:", accuracy)
+print("Precision:", precision)
+print("Recall:", recall)
+print("F1-score:", f1)
