@@ -79,10 +79,18 @@ if __name__ == "__main__":
     detector.train_classifier('/Users/mohamed/Desktop/spam_assassin.csv')
 
     # Test with a sample email text
-    email_text = "Congratulations! We would like to offer you a unique opportunity to receive a brand new Oral B iO Series 9! To claim, simply take this short survey about your experience with us."
-    predicted_label = detector.predict_email(email_text)
+    email_text = ("Congratulations! We would like to offer you a unique opportunity to receive\n"
+              "a brand new Oral B iO Series 9! To claim, simply take this short survey about your experience with us.")
 
+    predicted_label = detector.predict_email(email_text)
+    print("")
+    print("")
+    print ("*****EMAIL TEST*****")
+    print("")
+    print (email_text)
+    print("")
+    print("----------------------------------------------")
     if predicted_label == 0:
         print("The email is NOT spam.")
     else:
-        print("The email is spam.")
+        print("\033[1mRESULT:\033[0m This email is spam.")
